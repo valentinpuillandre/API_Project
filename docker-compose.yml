@@ -4,6 +4,8 @@ services:
   app:
     build:
       context: .
+      args:
+        - DEV=true
     # ports are used to expose the container's ports to the host
     # in this case, we are exposing port 8000
     # of the container to port 8000 of the host
