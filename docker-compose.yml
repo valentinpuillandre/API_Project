@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+    # ports are used to expose the container's ports to the host
+    # in this case, we are exposing port 8000
+    # of the container to port 8000 of the host
+    ports:
+      - "8000:8000"
+    # volumnes are used to persist data
+    # and to share data between the host and the container
+    # in this case, we are sharing the app directory
+    # between the host and the container
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
