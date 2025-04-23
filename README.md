@@ -4,7 +4,7 @@
 Ce projet est une API RESTful développée avec Django et Django REST Framework. Il fournit des endpoints pour gérer les données de manière sécurisée et efficace.
 
 ## Prérequis
-- Python 3.8+
+- Python 3.12+
 - Docker et Docker Compose
 - pip (gestionnaire de paquets Python)
 
