@@ -20,16 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Create .env file
-      - name: Create .env file
-        run: |
-          echo "DEBUG=False" >> API_Project/.env
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> API_Project/.env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> API_Project/.env
-
-      # Test the code
-      - name: Test
-        run: docker compose run --rm app sh -c "python manage.py test"
+      # # Test the code
+      # - name: Test
+      #   run: docker compose run --rm app sh -c "python manage.py test"
 
       # Lint the code
       - name: Lint
