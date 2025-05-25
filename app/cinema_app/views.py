@@ -1,18 +1,18 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Movie, Viewer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .models import Viewer
+from .serializers import ViewerSerializer
 
 
 def index(request):
     return HttpResponse("Hello, world. You're at the application index.")
 
 
-def recent_movies(request):
-    movies = Movie.objects.order_by("-released")[:5]
-    return render(request, "recent_movies.html", {"movies": movies})
-
-
-def viewers_list(request):
-    viewers = Viewer.objects.order_by("name")[:10]
-    return render(request, "viewers_list.html", {"viewers": viewers})
+class ViewersView(APIView):
+    def get(self, request):
+        viewers = Viewer.objects.all()
+        serializer = ViewerSerializer(viewers, many=True)
+        return Response(serializer.data)

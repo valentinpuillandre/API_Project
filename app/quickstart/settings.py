@@ -41,6 +41,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'cinema_app.apps.CinemaAppConfig',
     'quickstart.apps.MongoAdminConfig',
     'quickstart.apps.MongoAuthConfig',
@@ -89,8 +90,9 @@ WSGI_APPLICATION = 'quickstart.wsgi.application'
 # }
 
 DATABASES = {
-  "default": django_mongodb_backend.parse_uri(f"mongodb+srv://{username}:{password}@clustermongodb23042025.global.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000",  db_name="databaseproject")
+  "default": django_mongodb_backend.parse_uri(f"mongodb+srv://{username}:{password}@cluster0.gkbniau.mongodb.net/",  db_name="databaseproject")
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -137,4 +139,11 @@ MIGRATION_MODULES = {
     'admin': 'mongo_migrations.admin',
     'auth': 'mongo_migrations.auth',
     'contenttypes': 'mongo_migrations.contenttypes',
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
 }
