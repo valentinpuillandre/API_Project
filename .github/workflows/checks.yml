@@ -25,6 +25,8 @@ jobs:
           echo "DEBUG=${{ secrets.DEBUG }}" >> .env
           echo "USERNAME_MONGODB=${{ secrets.USERNAME_MONGODB }}" >> .env
           echo "PASSWORD_MONGODB=${{ secrets.PASSWORD_MONGODB }}" >> .env
+          echo "mongodb+srv://${{ secrets.USERNAME_MONGODB }}:${{ secrets.PASSWORD_MONGODB }}@cluster0.gkbniau.mongodb.net/,  db_name='databaseproject'" >> .env
+          echo "DATABASE_URL=mongodb+srv://${{ secrets.USERNAME_MONGODB }}:${{ secrets.PASSWORD_MONGODB }}@ac-ygvectq.gkbniau.mongodb.net/databaseproject?retryWrites=true&w=majority" >> .env
           # add more as needed
 
       # Test the code
