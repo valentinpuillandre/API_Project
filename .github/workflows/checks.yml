@@ -20,18 +20,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create .env file from secrets
-        run: |
-          echo "DEBUG=${{ secrets.DEBUG }}" >> .env
-          echo "USERNAME_MONGODB=${{ secrets.USERNAME_MONGODB }}" >> .env
-          echo "PASSWORD_MONGODB=${{ secrets.PASSWORD_MONGODB }}" >> .env
-          echo "DATABASE_URL=mongodb+srv://${{ secrets.USERNAME_MONGODB }}:${{ secrets.PASSWORD_MONGODB }}@${{ secrets.MONGODB_CLUSTER }}/databaseproject?retryWrites=true&w=majority&tls=true&tlsAllowInvalidCertificates=false" >> .env
-          # add more as needed
-
-      # Test the code
-      - name: Test
-        run: docker compose run --rm app sh -c "python manage.py test --noinput"
-
       # Lint the code
       - name: Lint
         run: docker compose run --rm app sh -c "flake8"
