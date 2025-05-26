@@ -23,8 +23,8 @@ jobs:
       - name: Create .env file from secrets
         run: |
           echo "DEBUG=${{ secrets.DEBUG }}" >> .env
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "USERNAME_MONGODB=${{ secrets.USERNAME_MONGODB }}" >> .env
+          echo "PASSWORD_MONGODB=${{ secrets.PASSWORD_MONGODB }}" >> .env
           # add more as needed
 
       # Test the code
