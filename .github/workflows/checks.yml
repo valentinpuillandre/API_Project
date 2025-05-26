@@ -20,6 +20,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Create .env file from secrets
+        run: |
+          echo "DEBUG=${{ secrets.DEBUG }}" >> .env
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          # add more as needed
+
       # Lint the code
       - name: Lint
         run: docker compose run --rm app sh -c "flake8"
