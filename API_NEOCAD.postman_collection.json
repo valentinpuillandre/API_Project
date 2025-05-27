@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "51ad2223-e53b-435c-8491-e5b9a5220f41",
+		"name": "API_NEOCAD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18820297",
+		"_collection_link": "https://red-capsule-315154.postman.co/workspace/My-Workspace~25865c75-f80f-4408-8c14-181f90c0b4af/collection/18820297-51ad2223-e53b-435c-8491-e5b9a5220f41?action=share&source=collection_link&creator=18820297"
+	},
+	"item": [
+		{
+			"name": "GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/nonconformity/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"nonconformity",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/nonconformity/683590c443a56202c1a47b18/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"nonconformity",
+						"683590c443a56202c1a47b18",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"company_id\": \"compagnie_du_nord\",\r\n  \"site_id\": \"site_715\",\r\n  \"reported_by\": \"oboyd@example.com\",\r\n  \"issue_type\": \"Safety\",\r\n  \"description\": \"Effort song sing consumer home attack religious heart our on save anything media item.\",\r\n  \"photos\": [],\r\n  \"severity\": \"High\",\r\n  \"tags\": [\"noise\"],\r\n  \"custom_fields\": {\r\n    \"gps_coordinates\": \"29.087567,11.557075\",\r\n    \"temporary_solution\": \"Course bill sell country data.\",\r\n    \"inspection_due_date\": \"2025-05-30\"\r\n  },\r\n  \"status\": \"Open\",\r\n  \"comments\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/nonconformity/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"nonconformity",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateById",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": \"Closed\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/nonconformity/683575725542a73852b70dcb/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"nonconformity",
+						"683575725542a73852b70dcb",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteById",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8000/nonconformity/683590c443a56202c1a47b18/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"nonconformity",
+						"683590c443a56202c1a47b18",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

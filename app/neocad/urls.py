@@ -1,12 +1,17 @@
 from django.urls import path
 
-from . import views
+from .views import NonConformityListView, NonConformityDetailView, IndexView
 
 urlpatterns = [
    path(
       'nonconformity/',
-      views.NonConformityViewSet.as_view(),
-      name='nonconformity'
+      NonConformityListView.as_view(),
+      name='nonconformity-list'
    ),
-   path("", views.index, name="index")
+   path(
+      'nonconformity/<str:pk>/',
+      NonConformityDetailView.as_view(),
+      name='nonconformity-detail'
+   ),
+   path("", IndexView.as_view(), name="index")
 ]
