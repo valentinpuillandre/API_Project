@@ -2,7 +2,8 @@ from rest_framework.test import APITestCase, APIClient
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
-
+from django.contrib.auth.models import User
+from rest_framework_simplejwt.tokens import AccessToken
 from ..models import NonConformity
 
 
@@ -17,13 +18,17 @@ class TestViews(APITestCase):
     """
     Test the views of the neocad app.
     """
-    def test_home_view(self):
-        """
-        Test the viewers view.
-        """
-        client = APIClient()
-        res = client.get("/nonconformity/")
+    def setUp(self):
+        self.client = APIClient()
+        user = User.objects.create_user(
+            username='testuser',
+            password='testpass'
+        )
+        token = AccessToken.for_user(user)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(token))
 
+    def test_home_view(self):
+        res = self.client.get("/nonconformity/")
         self.assertEqual(res.status_code, 200)
 
 
@@ -42,6 +47,12 @@ class NonConformityCRUDTestCase(APITestCase):
         self.detail_url = reverse(
             'nonconformity-detail', args=[self.non_conformity.id]
             )
+        user = User.objects.create_user(
+            username='testuser',
+            password='testpass'
+        )
+        token = AccessToken.for_user(user)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(token))
 
     def test_create_non_conformity(self):
         data = {

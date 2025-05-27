@@ -7,6 +7,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from .models import NonConformity
 from .serializers import NonConformitySerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class IndexView(View):
@@ -15,6 +16,8 @@ class IndexView(View):
 
 
 class NonConformityListView(APIView):
+    permission_classes = [IsAuthenticated]
+
     @swagger_auto_schema(
         operation_summary="List all nonconformities",
         operation_description=(
@@ -42,6 +45,8 @@ class NonConformityListView(APIView):
 
 
 class NonConformityDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
     @swagger_auto_schema(
         operation_summary="Retrieve a specific nonconformity",
         operation_description=(
