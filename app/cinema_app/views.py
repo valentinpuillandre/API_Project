@@ -11,13 +11,6 @@ def index(request):
     return HttpResponse("Hello, world. You're at the application index.")
 
 
-class ViewersView(APIView):
-    def get(self, request):
-        viewers = Viewer.objects.all()
-        serializer = ViewerSerializer(viewers, many=True)
-        return Response(serializer.data)
-
-
 class NonConformityViewSet(APIView):
     def get(self, request):
         queryset = NonConformity.objects.all()

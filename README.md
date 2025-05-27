@@ -100,3 +100,10 @@ Les règles principales incluent :
 - Suivre les conventions de nommage PEP 8
 - Documenter le code avec des docstrings
 - Utiliser des types hints quand c'est possible
+
+## Documentation
+
+La documentation de l'API est disponible aux endpoints suivants :
+
+- Swagger UI : [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+- ReDoc : [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
