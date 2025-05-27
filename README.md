@@ -107,3 +107,13 @@ La documentation de l'API est disponible aux endpoints suivants :
 
 - Swagger UI : [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
 - ReDoc : [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
+
+## POSTMAN
+
+Pour utiliser postman :
+
+- Créer un superuser django
+- Aller sur http://localhost:8000/api/token/
+- Récupérer le token "access"
+- Dans postman, onglet "Headers" mettre la key à "Authorization" la value au token "access"
+- Lancer le GET/POST/DELETE/PATCH
