@@ -91,7 +91,9 @@ WSGI_APPLICATION = 'quickstart.wsgi.application'
 # }
 
 DATABASES = {
-  "default": django_mongodb_backend.parse_uri(f"mongodb+srv://{username}:{password}@cluster0.gkbniau.mongodb.net/",  db_name="databaseproject")
+  "default": django_mongodb_backend.parse_uri(
+      f"mongodb+srv://{username}:{password}@cluster0.gkbniau.mongodb.net/databaseproject?ssl=true&retryWrites=true&w=majority"
+  )
 }
 
 
