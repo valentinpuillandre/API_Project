@@ -37,4 +37,4 @@ jobs:
           docker compose run --rm app sh -c "
           export MONGO_USER=${{ secrets.USERNAME_MONGODB }} &&
           export MONGO_PASSWORD=${{ secrets.PASSWORD_MONGODB }} &&
-          python manage.py test"
+          python manage.py test --noinput"
