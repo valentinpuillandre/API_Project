@@ -35,6 +35,6 @@ jobs:
       - name: Run Tests
         run: |
           docker compose run --rm app sh -c "
-          export MONGO_USER=${{ secrets.USERNAME_MONGODB }} &&
-          export MONGO_PASSWORD=${{ secrets.PASSWORD_MONGODB }} &&
+          export USERNAME_MONGODB=${{ secrets.USERNAME_MONGODB }} &&
+          export PASSWORD_MONGODB=${{ secrets.PASSWORD_MONGODB }} &&
           python manage.py test --noinput"
