@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import NonConformity, Viewer
-from .serializers import NonConformitySerializer, ViewerSerializer
+from .models import NonConformity
+from .serializers import NonConformitySerializer
 
 
 def index(request):

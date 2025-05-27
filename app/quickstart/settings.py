@@ -42,7 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
-    'cinema_app.apps.CinemaAppConfig',
+    'neocad.apps.NeocadConfig',
     'quickstart.apps.MongoAdminConfig',
     'quickstart.apps.MongoAuthConfig',
     'quickstart.apps.MongoContentTypesConfig',

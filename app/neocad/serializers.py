@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from .models import Viewer, NonConformity, Comment
-
-
-class ViewerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Viewer
-        fields = ['name', 'email']
+from .models import NonConformity, Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
