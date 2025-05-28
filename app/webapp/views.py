@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import View
@@ -31,4 +34,40 @@ class LandingRegisterView(View):
             request,
             "Account created successfully. Please log in."
             )
+        return redirect("register")
+
+
+class LandingLoginView(View):
+    def get(self, request):
+        return render(request, "webapp/login.html")
+
+    def post(self, request):
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("account")
+        return render(
+            request,
+            "webapp/login.html",
+            {"error": "Invalid credentials."}
+            )
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
+    return redirect("login")
+
+
+@method_decorator(login_required, name="dispatch")
+class AccountView(View):
+    def get(self, request):
+        return render(request, "webapp/account.html")
+
+    def post(self, request):
+        request.user.delete()
+        logout(request)
+        messages.success(request, "Account deleted.")
         return redirect("register")

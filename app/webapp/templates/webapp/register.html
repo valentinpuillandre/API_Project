@@ -1,48 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Account</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        .form-box { max-width: 400px; margin: auto; padding: 2em; border: 1px solid #ccc; border-radius: 8px; }
-        .error { color: #b00; margin-bottom: 1em; }
-        .success { color: #080; margin-bottom: 1em; }
-    </style>
-</head>
-<body>
-    <div class="form-box">
-        <h2>Create Your Account</h2>
-        {% if errors %}
-            <div class="error">
-                <ul>
-                    {% for error in errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="success">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        <form method="post">
-            {% csrf_token %}
-            <label>Username:<br>
-                <input type="text" name="username" required>
-            </label><br><br>
-            <label>Email:<br>
-                <input type="email" name="email" required>
-            </label><br><br>
-            <label>Password:<br>
-                <input type="password" name="password1" required>
-            </label><br><br>
-            <label>Confirm Password:<br>
-                <input type="password" name="password2" required>
-            </label><br><br>
-            <button type="submit">Register</button>
-        </form>
+{% extends "webapp/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h3 class="card-title text-center mb-4">Create Your Account</h3>
+
+            {% if errors %}
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" name="password2" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
