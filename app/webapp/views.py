@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import View
 
-# Create your views here.
 
 class LandingRegisterView(View):
     def get(self, request):
@@ -25,6 +24,11 @@ class LandingRegisterView(View):
             errors.append("Email already registered.")
         if errors:
             return render(request, "webapp/register.html", {"errors": errors})
-        User.objects.create_user(username=username, email=email, password=password1)
-        messages.success(request, "Account created successfully. Please log in.")
+        User.objects.create_user(
+            username=username, email=email, password=password1
+            )
+        messages.success(
+            request,
+            "Account created successfully. Please log in."
+            )
         return redirect("register")
