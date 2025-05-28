@@ -28,7 +28,7 @@ class TestViews(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(token))
 
     def test_home_view(self):
-        res = self.client.get("/nonconformity/")
+        res = self.client.get("/api/nonconformity/")
         self.assertEqual(res.status_code, 200)
 
 

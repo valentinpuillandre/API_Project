@@ -1,0 +1,12 @@
+{% extends "webapp/base.html" %}
+{% block title %}Account{% endblock %}
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+<p><strong>Email:</strong> {{ user.email }}</p>
+<p><strong>Username:</strong> {{ user.username }}</p>
+
+<form method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger mt-3">Delete My Account</button>
+</form>
+{% endblock %}
