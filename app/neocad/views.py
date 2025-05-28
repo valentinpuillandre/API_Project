@@ -4,6 +4,7 @@ from django.views import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.throttling import UserRateThrottle
 
 from .models import NonConformity
 from .serializers import NonConformitySerializer
@@ -15,8 +16,13 @@ class IndexView(View):
         return JsonResponse({"status": "ok"})
 
 
+class TenPerMinuteUserThrottle(UserRateThrottle):
+    rate = '10/minute'
+
+
 class NonConformityListView(APIView):
     permission_classes = [IsAuthenticated]
+    throttle_classes = [TenPerMinuteUserThrottle]
 
     @swagger_auto_schema(
         operation_summary="List all nonconformities",
@@ -46,6 +52,7 @@ class NonConformityListView(APIView):
 
 class NonConformityDetailView(APIView):
     permission_classes = [IsAuthenticated]
+    throttle_classes = [TenPerMinuteUserThrottle]
 
     @swagger_auto_schema(
         operation_summary="Retrieve a specific nonconformity",
