@@ -1,5 +1,7 @@
 from django.http import JsonResponse
 from django.views import View
+from django.conf import settings
+from pymongo import MongoClient
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -102,3 +104,36 @@ class NonConformityDetailView(APIView):
             return Response(deleted_data, status=200)
         except NonConformity.DoesNotExist:
             return Response({"error": "Not found"}, status=404)
+
+
+class NonConformityStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [TenPerMinuteUserThrottle]
+
+    @swagger_auto_schema(
+        operation_summary="Get severity statistics",
+        operation_description=(
+            "Retrieve statistics about the number of nonconformities",
+            "per severity level using MongoDB aggregation."
+        )
+    )
+    def get(self, request):
+        client = MongoClient(settings.MONGODB_URI)
+        db_name = settings.DATABASES['default']['NAME']
+        db = client[db_name]
+        collection = db['neocad']
+
+        pipeline = [
+            {
+                "$group": {
+                    "_id": "$severity",
+                    "count": {"$sum": 1}
+                }
+            },
+            {
+                "$sort": {"count": -1}
+            }
+        ]
+        results = list(collection.aggregate(pipeline))
+        stats = {item['_id']: item['count'] for item in results}
+        return Response(stats)

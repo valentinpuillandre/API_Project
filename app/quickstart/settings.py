@@ -19,6 +19,7 @@ from urllib.parse import quote_plus
 
 username = quote_plus(os.getenv("USERNAME_MONGODB", "admin"))
 password = quote_plus(os.getenv("PASSWORD_MONGODB", "admin"))
+MONGODB_URI = f"mongodb+srv://{username}:{password}@cluster0.gkbniau.mongodb.net/databaseproject?ssl=true&retryWrites=true&w=majority"
 
 
 
@@ -93,7 +94,7 @@ WSGI_APPLICATION = 'quickstart.wsgi.application'
 
 DATABASES = {
   "default": django_mongodb_backend.parse_uri(
-      f"mongodb+srv://{username}:{password}@cluster0.gkbniau.mongodb.net/databaseproject?ssl=true&retryWrites=true&w=majority"
+      MONGODB_URI
   )
 }
 

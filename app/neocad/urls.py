@@ -7,7 +7,12 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from .views import NonConformityListView, NonConformityDetailView, IndexView
+from .views import (
+    NonConformityListView,
+    NonConformityDetailView,
+    NonConformityStatsView,
+    IndexView
+)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -54,6 +59,11 @@ urlpatterns = [
          'nonconformity/<str:pk>/',
          NonConformityDetailView.as_view(),
          name='nonconformity-detail'
+      ),
+      path(
+         'nonconformity/stats/severity/',
+         NonConformityStatsView.as_view(),
+         name='nonconformity-stats-severity'
       ),
 
 ]
