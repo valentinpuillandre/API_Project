@@ -5,6 +5,22 @@
 <p><strong>Email:</strong> {{ user.email }}</p>
 <p><strong>Username:</strong> {{ user.username }}</p>
 
+<div class="mb-3 mt-4">
+    <label for="jwt-token" class="form-label"><strong>Your JWT Token:</strong></label>
+    <textarea id="jwt-token" class="form-control" rows="3" readonly style="font-size: 0.95em;">{{ jwt_token }}</textarea>
+</div>
+
+<div class="mb-3">
+    <button class="btn btn-info" onclick="openSwaggerWithToken()">Open Swagger UI (auto-auth)</button>
+</div>
+<script>
+function openSwaggerWithToken() {
+    // Store the JWT token in localStorage for Swagger UI to use
+    localStorage.setItem('swagger_jwt', document.getElementById('jwt-token').value);
+    window.open('/api/swagger/', '_blank');
+}
+</script>
+
 <form method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger mt-3">Delete My Account</button>

@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import View
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class LandingRegisterView(View):
@@ -64,7 +65,14 @@ def logout_view(request):
 @method_decorator(login_required, name="dispatch")
 class AccountView(View):
     def get(self, request):
-        return render(request, "webapp/account.html")
+        # Generate JWT token for the current user
+        refresh = RefreshToken.for_user(request.user)
+        jwt_token = str(refresh.access_token)
+        return render(
+            request,
+            "webapp/account.html",
+            {"jwt_token": jwt_token}
+        )
 
     def post(self, request):
         request.user.delete()
