@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from .models import NonConformity, Comment
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
+from .models import NonConformity
 
 
 class NonConformitySerializer(serializers.ModelSerializer):
@@ -15,3 +9,9 @@ class NonConformitySerializer(serializers.ModelSerializer):
             'company_id', 'site_id', 'reported_by',
             'issue_type', 'description', 'photos', 'severity',
             'tags', 'custom_fields', 'status', 'comments']
+        extra_kwargs = {
+            'photos': {'required': False},
+            'tags': {'required': False},
+            'custom_fields': {'required': False},
+            'comments': {'required': False},
+        }
