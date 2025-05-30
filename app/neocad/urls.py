@@ -61,7 +61,7 @@ urlpatterns = [
          name='nonconformity-detail'
       ),
       path(
-         'nonconformity/stats/severity/',
+         'stats/severity/',
          NonConformityStatsView.as_view(),
          name='nonconformity-stats-severity'
       ),

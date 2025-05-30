@@ -1,15 +1,6 @@
 from django.db import models
 
 
-class Comment(models.Model):
-    author = models.EmailField()
-    comment = models.TextField()
-    timestamp = models.DateTimeField()
-
-    def __str__(self):
-        return f"{self.author} - {self.timestamp}"
-
-
 class NonConformity(models.Model):
     class Meta:
         db_table = "neocad"
@@ -20,13 +11,12 @@ class NonConformity(models.Model):
     reported_by = models.EmailField()
     issue_type = models.CharField(max_length=50)
     description = models.TextField()
-    photos = models.JSONField(blank=True, null=True)  # liste d'URLs photo
+    photos = models.JSONField(blank=True, null=True)
     severity = models.CharField(max_length=20)
-    tags = models.JSONField(blank=True, null=True)  # liste de tags
+    tags = models.JSONField(blank=True, null=True)
     custom_fields = models.JSONField(blank=True, null=True)
     status = models.CharField(max_length=50)
-
-    comments = models.ManyToManyField(Comment, blank=True)
+    comments = models.JSONField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.company_id} - {self.issue_type} ({self.status})"
