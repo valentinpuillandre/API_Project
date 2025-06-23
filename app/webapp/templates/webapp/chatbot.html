@@ -1,0 +1,47 @@
+{% extends "webapp/base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center">Chatbot</h3>
+    <form id="chatbot-form" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="query" class="form-label">Ask a question:</label>
+            <input type="text" id="query" name="query" class="form-control" placeholder="Enter your query" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="results" class="mt-4">
+        <!-- Results will be displayed here -->
+    </div>
+</div>
+<script>
+document.getElementById("chatbot-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const query = document.getElementById("query").value;
+    const response = await fetch("{% url 'chatbot' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: `query=${encodeURIComponent(query)}`
+    });
+    const data = await response.json();
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = "";
+    if (data.results) {
+        data.results.forEach(result => {
+            const div = document.createElement("div");
+            div.className = "alert alert-info";
+            div.innerHTML = `<strong>Description:</strong> ${result.description}<br>
+                             <strong>Severity:</strong> ${result.severity}<br>
+                             <strong>Status:</strong> ${result.status}`;
+            resultsDiv.appendChild(div);
+        });
+    } else {
+        resultsDiv.innerHTML = `<div class="alert alert-danger">${data.error || "No results found."}</div>`;
+    }
+});
+</script>
+{% endblock %}

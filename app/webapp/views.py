@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views import View
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.http import JsonResponse
+from django.conf import settings
+from pymongo import MongoClient
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 class LandingRegisterView(View):
@@ -79,3 +84,36 @@ class AccountView(View):
         logout(request)
         messages.success(request, "Account deleted.")
         return redirect("register")
+
+
+class ChatbotView(View):
+    def get(self, request):
+        return render(request, "webapp/chatbot.html")
+
+    def post(self, request):
+        user_input = request.POST.get("query", "").strip()
+        if not user_input:
+            return JsonResponse({"error": "Query cannot be empty."}, status=400)
+
+        # Connect to MongoDB
+        client = MongoClient(settings.MONGODB_URI)
+        db_name = settings.DATABASES['default']['NAME']
+        db = client[db_name]
+        collection = db['neocad']
+
+        # Retrieve all descriptions from the database
+        descriptions = list(collection.find({}, {"description": 1, "severity": 1, "status": 1, "_id": 0}))
+        description_texts = [desc["description"] for desc in descriptions]
+
+        # Use TF-IDF and cosine similarity for semantic matching
+        vectorizer = TfidfVectorizer()
+        tfidf_matrix = vectorizer.fit_transform(description_texts + [user_input])
+        similarity_scores = cosine_similarity(tfidf_matrix[-1], tfidf_matrix[:-1]).flatten()
+
+        # Find matching descriptions based on similarity threshold
+        threshold = 0.3  # Adjust threshold as needed
+        matching_descriptions = [
+            descriptions[i] for i in range(len(similarity_scores)) if similarity_scores[i] >= threshold
+        ]
+
+        return JsonResponse({"results": matching_descriptions}, status=200)

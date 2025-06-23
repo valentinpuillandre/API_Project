@@ -4,7 +4,8 @@ from .views import (
     LandingRegisterView,
     LandingLoginView,
     AccountView,
-    logout_view
+    logout_view,
+    ChatbotView
     )
 
 
@@ -20,4 +21,5 @@ urlpatterns = [
     path("login/", LandingLoginView.as_view(), name="login"),
     path("logout/", logout_view, name="logout"),
     path("account/", AccountView.as_view(), name="account"),
+    path("chatbot/", ChatbotView.as_view(), name="chatbot"),
 ]
